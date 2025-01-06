@@ -1,9 +1,6 @@
-'use client'
-
 import * as S from "./StyledUsersTable";
-
-import { ClientData } from "@/app/types/types"
-import { useState } from "react";
+import { ClientData } from "@/app/types/types";
+import { useEffect, useState } from "react";
 
 interface TableProps {
   data: ClientData[];
@@ -11,43 +8,61 @@ interface TableProps {
 }
 
 export default function Table({ data, isLoading = false }: TableProps) {
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (isLoading) {
+      setShowLoading(true);
+    } else {
+      timer = setTimeout(() => {
+        setShowLoading(false);
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [isLoading]);
+
   const [sortConfig, setSortConfig] = useState<{
-    key: 'Nome' | 'Disponivel' | null;
-    direction: 'asc' | 'desc';
+    key: "Nome" | "Disponivel" | null;
+    direction: "asc" | "desc";
   }>({
-    key: 'Nome',
-    direction: 'asc'
+    key: "Nome",
+    direction: "asc",
   });
 
   const sortedData = [...data].sort((a, b) => {
     if (!sortConfig.key) return 0;
 
-    if (sortConfig.key === 'Nome') {
+    if (sortConfig.key === "Nome") {
       const compareResult = a.Nome.localeCompare(b.Nome);
-      return sortConfig.direction === 'asc' ? compareResult : -compareResult;
+      return sortConfig.direction === "asc" ? compareResult : -compareResult;
     }
 
-    if (sortConfig.key === 'Disponivel') {
+    if (sortConfig.key === "Disponivel") {
       const compareResult = Number(a.Disponivel) - Number(b.Disponivel);
-      return sortConfig.direction === 'asc' ? compareResult : -compareResult;
+      return sortConfig.direction === "asc" ? compareResult : -compareResult;
     }
 
     return 0;
   });
 
-  const handleSort = (key: 'Nome' | 'Disponivel') => {
+  const handleSort = (key: "Nome" | "Disponivel") => {
     setSortConfig({
       key,
       direction:
-        sortConfig.key === key && sortConfig.direction === 'asc'
-          ? 'desc'
-          : 'asc',
+        sortConfig.key === key && sortConfig.direction === "asc"
+          ? "desc"
+          : "asc",
     });
   };
 
   return (
     <S.TableContainer>
-      {isLoading && (
+      {showLoading && (
         <S.LoadingDiv>
           <S.LoadingBar />
         </S.LoadingDiv>
@@ -58,23 +73,27 @@ export default function Table({ data, isLoading = false }: TableProps) {
             <S.Tr>
               <S.Th
                 $width="70%"
-                onClick={() => handleSort('Nome')}
-                style={{ cursor: 'pointer' }}
+                onClick={() => handleSort("Nome")}
+                style={{ cursor: "pointer" }}
               >
-                Nome {sortConfig.key === 'Nome'
-                  ? (sortConfig.direction === 'asc' ? '▲' : '▼')
-                  : ''
-                }
+                Nome{" "}
+                {sortConfig.key === "Nome"
+                  ? sortConfig.direction === "asc"
+                    ? "▲"
+                    : "▼"
+                  : ""}
               </S.Th>
               <S.Th
                 $width="30%"
-                onClick={() => handleSort('Disponivel')}
-                style={{ cursor: 'pointer' }}
+                onClick={() => handleSort("Disponivel")}
+                style={{ cursor: "pointer" }}
               >
-                Status {sortConfig.key === 'Disponivel'
-                  ? (sortConfig.direction === 'asc' ? '▼' : '▲')
-                  : ''
-                }
+                Status{" "}
+                {sortConfig.key === "Disponivel"
+                  ? sortConfig.direction === "asc"
+                    ? "▼"
+                    : "▲"
+                  : ""}
               </S.Th>
             </S.Tr>
           </S.Thead>
@@ -90,7 +109,7 @@ export default function Table({ data, isLoading = false }: TableProps) {
                 <S.Tr key={index}>
                   <S.Td>{item.Nome}</S.Td>
                   <S.Td>
-                    {item.Disponivel ? 'Ativo' : 'Desativado'}
+                    {item.Disponivel ? "Ativo" : "Desativado"}
                   </S.Td>
                 </S.Tr>
               ))

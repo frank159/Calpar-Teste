@@ -11,7 +11,7 @@ import UsersTable from "@/components/UsersTable/UsersTable"
 import { ClientData, StatusFilter } from "@/app/types/types"
 import { useState } from "react"
 
-export default function InputPage() {
+export default function HomePage() {
     const [msg, setMsg] = useState('')
     const [error, setError] = useState(false)
     const [isApiOn, setIsApiOn] = useState(true)
