@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface ThProps {
-    $width?: string;  // Usando $ para evitar o warning do styled-components com props HTML
+    $width?: string;
 }
 
 export const MainContainer = styled.div`
@@ -15,11 +15,17 @@ export const MainContainer = styled.div`
 export const Table = styled.table`
     width: 100%;
     background-color: aliceblue;
-    color: #000000;
+    font-weight: bold;
+
 `;
 
 export const Thead = styled.thead`
-    border: 1px solid #000000;
+  position: sticky;
+  color: #ffffff;
+
+  background-color: #551a0d;
+  top: 0;
+  z-index: 2;
 `;
 
 export const Tr = styled.tr`
@@ -27,14 +33,14 @@ export const Tr = styled.tr`
 `;
 
 export const Th = styled.th<ThProps>`
-    border: 1px solid #000000;
     padding: 0.75rem;
+    
     user-select: none;
     transition: background-color 0.2s;
     width: ${props => props.$width || 'auto'};
 
     &:hover {
-        background-color: #0000000d;
+        background-color: #cccccc1a;
     }
 `;
 
@@ -44,12 +50,13 @@ export const Td = styled.td`
 `;
 
 export const Tbody = styled.tbody`
-    background-color: #00000028;
+    background-color: #99999929;
 `;
 
 export const TableWrapper = styled.div`
     height: 40vh;
     width: 80vw;
+    
 
     overflow-y: auto;
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface StyledProps {
   $color?: boolean;
-  fadeOut: boolean; // Propriedade que será usada para controlar o efeito de fade-out no estilo
+  fadeOut: boolean;
 }
 
 export const MsgContainer = styled.div`
@@ -20,9 +20,9 @@ export const MsgTextContainer = styled.div<StyledProps>`
     padding: 10px;
     margin-bottom: 2%;
     background-color: ${props => (props.$color ? 'red' : 'green')};
-    transition: opacity 2s ease-in-out;  // Transição de opacidade
+    transition: opacity 2s ease-in-out;
 
-    opacity: ${props => (props.fadeOut ? 0 : 1)}; // Controlando a opacidade baseada no fadeOut
+    opacity: ${props => (props.fadeOut ? 0 : 1)};
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,13 +1,15 @@
 'use client'
 
 import * as S from "./StyledInputPage";
-import Header from "@/components/Header/Header"
-import SearchField from "@/components/SearchBar/SearchBar"
+
 import Footer from "@/components/Footer/Footer"
+import Header from "@/components/Header/Header"
+import MsgNotif from "@/components/MsgNotif/MsgNotif"
+import SearchField from "@/components/SearchBar/SearchBar"
 import UsersTable from "@/components/UsersTable/UsersTable"
+
 import { ClientData, StatusFilter } from "@/app/types/types"
 import { useState } from "react"
-import MsgNotif from "@/components/MsgNotif/MsgNotif"
 
 export default function InputPage() {
     const [filteredData, setFilteredData] = useState<ClientData[]>([])
@@ -15,15 +17,14 @@ export default function InputPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(false)
     const [msg, setMsg] = useState('')
-    const [isApiOn, setIsApiOn] = useState(true) // Novo estado para simular o status da API
-
+    const [isApiOn, setIsApiOn] = useState(true)
+    
     const fetchData = async (searchTerm: string, status: StatusFilter) => {
         try {
             setData([])
             setFilteredData([])
             setIsLoading(true)
 
-            // Simulação de falha na API
             if (!isApiOn) {
                 throw new Error('Erro simulado.')
             }
@@ -68,7 +69,6 @@ export default function InputPage() {
         fetchData(term, status)
     }
 
-    // Função para alternar o estado da API
     const toggleApiStatus = () => {
         setIsApiOn(prev => !prev)
     }

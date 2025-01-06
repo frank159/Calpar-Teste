@@ -1,12 +1,19 @@
 'use client'
 
 import { useState } from 'react';
+
 import * as S from "./StyledSearchBar";
+
 import { ClientData, StatusFilter } from '@/app/types/types';
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+
+import { FaFileDownload } from "react-icons/fa";
+
 
 interface SearchBarProps {
   data: ClientData[];
-  onSearch: (searchTerm: string, status: StatusFilter) => void
+  onSearch: (searchTerm: string, status: StatusFilter) => void;
 }
 
 export default function SearchBar({ onSearch, data }: SearchBarProps) {
@@ -26,6 +33,30 @@ export default function SearchBar({ onSearch, data }: SearchBarProps) {
     setStatusFilter(e.target.value as StatusFilter);
   };
 
+  const handleDownload = () => {
+    const doc = new jsPDF();
+  
+    doc.text("Tabela de Clientes", 10, 10);
+  
+    const tableHeaders = ["Nome", "Status"];
+  
+    const sortedData = [...data].sort((a, b) => (b.Disponivel ? 1 : 0) - (a.Disponivel ? 1 : 0));
+  
+    const tableData = sortedData.map(client => [
+      client.Nome,
+      client.Disponivel ? "Disponível" : "Indisponível"
+    ]);
+  
+    doc.autoTable({
+      head: [tableHeaders],
+      body: tableData,
+      startY: 20,
+    });
+  
+    doc.save("tabela_clientes.pdf");
+  };
+  
+
   return (
     <form onSubmit={handleSubmit} className="mb-6">
       <S.MainContainer>
@@ -38,6 +69,14 @@ export default function SearchBar({ onSearch, data }: SearchBarProps) {
             onChange={handleInputChange}
             placeholder="Buscar por nome..."
           />
+          <S.DownloadButton 
+            type="button" 
+            onClick={handleDownload}
+            disabled={data.length == 0}
+          >
+            <FaFileDownload color={data.length === 0 ? 'gray' : 'black'} />
+          </S.DownloadButton>
+
         </S.InputContainer>
         <S.ButtonContainer>
           <S.FilterSelect 

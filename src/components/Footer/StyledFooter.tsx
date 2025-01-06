@@ -5,11 +5,13 @@ export const FooterContainer = styled.footer`
   color: white;
   padding: 1rem 0;
 `
+export const Text = styled.p`
+  font-size: 12px;
+`
 
 export const FooterContent = styled.div`
   margin: 0 auto;
   padding: 0 1rem;
-  
   justify-content: space-between;
   align-items: center;
 

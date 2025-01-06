@@ -15,7 +15,7 @@ export default function MsgNotif({ msg, error }: MsgNotifProps) {
     if (msg) {
       toast(msg, {
         type: error ? 'error' : 'success',
-        autoClose: 5000,
+        autoClose: 2000,
         position: "bottom-center",
         hideProgressBar: false,
         closeOnClick: true,

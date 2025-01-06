@@ -1,6 +1,8 @@
 'use client'
-import { ClientData } from "@/app/types/types"
+
 import * as S from "./StyledUsersTable";
+
+import { ClientData } from "@/app/types/types"
 import { useState } from "react";
 
 interface TableProps {
@@ -70,7 +72,7 @@ export default function Table({ data, isLoading = false }: TableProps) {
                   style={{ cursor: 'pointer' }}
                 >
                   Status {sortConfig.key === 'Disponivel' 
-                    ? (sortConfig.direction === 'asc' ? '▲' : '▼')
+                    ? (sortConfig.direction === 'asc' ? '▼' : '▲')
                     : ''
                   }
                 </S.Th>

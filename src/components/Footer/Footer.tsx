@@ -9,7 +9,7 @@ export default function Footer({ isApiOn, toggleApiStatus }: FooterProps) {
   return (
     <S.FooterContainer>
       <S.FooterContent>
-        <p>&copy; {new Date().getFullYear()} Todos os Direitos Reservados Calpar Comércio de Calcário Ltda.</p>
+        <S.Text>&copy; {new Date().getFullYear()} Todos os Direitos Reservados Calpar Comércio de Calcário Ltda.</S.Text>
         <S.ButtonContainer>
           <S.ToggleButton 
             onClick={toggleApiStatus} 
