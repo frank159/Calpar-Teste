@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface StyledProps {
-  $color?: boolean;
-  fadeOut: boolean;
+    $color?: boolean;
+    fadeOut: boolean;
 }
 
 export const MsgContainer = styled.div`

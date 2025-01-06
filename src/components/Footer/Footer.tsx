@@ -11,8 +11,8 @@ export default function Footer({ isApiOn, toggleApiStatus }: FooterProps) {
       <S.FooterContent>
         <S.Text>&copy; {new Date().getFullYear()} Todos os Direitos Reservados Calpar Comércio de Calcário Ltda.</S.Text>
         <S.ButtonContainer>
-          <S.ToggleButton 
-            onClick={toggleApiStatus} 
+          <S.ToggleButton
+            onClick={toggleApiStatus}
             $isApiOn={isApiOn}
           >
             {isApiOn ? 'Simular Erro' : 'Não simular Erro'}

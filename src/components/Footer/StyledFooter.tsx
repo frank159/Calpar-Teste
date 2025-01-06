@@ -34,6 +34,6 @@ export const ToggleButton = styled.button<{ $isApiOn: boolean }>`
 
   &:hover {
     background-color: ${(props) =>
-      props.$isApiOn ? '#2f855a' : '#c53030'};
+    props.$isApiOn ? '#2f855a' : '#c53030'};
   }
 `

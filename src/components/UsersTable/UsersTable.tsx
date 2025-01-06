@@ -38,66 +38,66 @@ export default function Table({ data, isLoading = false }: TableProps) {
   const handleSort = (key: 'Nome' | 'Disponivel') => {
     setSortConfig({
       key,
-      direction: 
-        sortConfig.key === key && sortConfig.direction === 'asc' 
-          ? 'desc' 
+      direction:
+        sortConfig.key === key && sortConfig.direction === 'asc'
+          ? 'desc'
           : 'asc',
     });
   };
 
   return (
-      <S.TableContainer>
-        {isLoading && (
-          <S.LoadingDiv>
-            <S.LoadingBar />
-          </S.LoadingDiv>
-        )}
-        <S.TableWrapper>
-          <S.Table>
-            <S.Thead>
+    <S.TableContainer>
+      {isLoading && (
+        <S.LoadingDiv>
+          <S.LoadingBar />
+        </S.LoadingDiv>
+      )}
+      <S.TableWrapper>
+        <S.Table>
+          <S.Thead>
+            <S.Tr>
+              <S.Th
+                $width="70%"
+                onClick={() => handleSort('Nome')}
+                style={{ cursor: 'pointer' }}
+              >
+                Nome {sortConfig.key === 'Nome'
+                  ? (sortConfig.direction === 'asc' ? '▲' : '▼')
+                  : ''
+                }
+              </S.Th>
+              <S.Th
+                $width="30%"
+                onClick={() => handleSort('Disponivel')}
+                style={{ cursor: 'pointer' }}
+              >
+                Status {sortConfig.key === 'Disponivel'
+                  ? (sortConfig.direction === 'asc' ? '▼' : '▲')
+                  : ''
+                }
+              </S.Th>
+            </S.Tr>
+          </S.Thead>
+          <S.Tbody>
+            {!data || data.length === 0 ? (
               <S.Tr>
-                <S.Th 
-                  $width="70%"
-                  onClick={() => handleSort('Nome')} 
-                  style={{ cursor: 'pointer' }}
-                >
-                  Nome {sortConfig.key === 'Nome' 
-                    ? (sortConfig.direction === 'asc' ? '▲' : '▼')
-                    : ''
-                  }
-                </S.Th>
-                <S.Th 
-                  $width="30%"
-                  onClick={() => handleSort('Disponivel')} 
-                  style={{ cursor: 'pointer' }}
-                >
-                  Status {sortConfig.key === 'Disponivel' 
-                    ? (sortConfig.direction === 'asc' ? '▼' : '▲')
-                    : ''
-                  }
-                </S.Th>
+                <S.EmptyMessageTd colSpan={2}>
+                  Nenhum dado encontrado.
+                </S.EmptyMessageTd>
               </S.Tr>
-            </S.Thead>
-            <S.Tbody>
-              {!data || data.length === 0 ? (
-                <S.Tr>
-                  <S.EmptyMessageTd colSpan={2}>
-                    Nenhum dado encontrado.
-                  </S.EmptyMessageTd>
+            ) : (
+              sortedData.map((item, index) => (
+                <S.Tr key={index}>
+                  <S.Td>{item.Nome}</S.Td>
+                  <S.Td>
+                    {item.Disponivel ? 'Ativo' : 'Desativado'}
+                  </S.Td>
                 </S.Tr>
-              ) : (
-                sortedData.map((item, index) => (
-                  <S.Tr key={index}>
-                    <S.Td>{item.Nome}</S.Td>
-                    <S.Td>
-                      {item.Disponivel ? 'Ativo' : 'Desativado'}
-                    </S.Td>
-                  </S.Tr>
-                ))
-              )}
-            </S.Tbody>
-          </S.Table>
-        </S.TableWrapper>
-      </S.TableContainer>
+              ))
+            )}
+          </S.Tbody>
+        </S.Table>
+      </S.TableWrapper>
+    </S.TableContainer>
   );
 }
