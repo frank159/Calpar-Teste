@@ -12,13 +12,13 @@ import { ClientData, StatusFilter } from "@/app/types/types"
 import { useState } from "react"
 
 export default function InputPage() {
-    const [filteredData, setFilteredData] = useState<ClientData[]>([])
-    const [data, setData] = useState<ClientData[]>([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(false)
     const [msg, setMsg] = useState('')
+    const [error, setError] = useState(false)
     const [isApiOn, setIsApiOn] = useState(true)
-    
+    const [isLoading, setIsLoading] = useState(false)
+    const [data, setData] = useState<ClientData[]>([])
+    const [filteredData, setFilteredData] = useState<ClientData[]>([])
+
     const fetchData = async (searchTerm: string, status: StatusFilter) => {
         try {
             setData([])
@@ -45,13 +45,13 @@ export default function InputPage() {
 
             let filtered = data
             if (searchTerm.trim()) {
-                filtered = filtered.filter((client: ClientData) => 
+                filtered = filtered.filter((client: ClientData) =>
                     client.Nome.toLowerCase().includes(searchTerm.toLowerCase())
                 )
             }
 
             if (status !== StatusFilter.ALL) {
-                filtered = filtered.filter((client: ClientData) => 
+                filtered = filtered.filter((client: ClientData) =>
                     status === StatusFilter.ACTIVE ? client.Disponivel : !client.Disponivel
                 )
             }
@@ -77,15 +77,13 @@ export default function InputPage() {
         <S.PageContainer>
             <Header />
             <S.MainContent>
-                
                 <SearchField onSearch={handleSearch} data={data} />
-                <UsersTable 
-                    data={filteredData} 
+                <UsersTable
+                    data={filteredData}
                     isLoading={isLoading}
                 />
             </S.MainContent>
-
-                <MsgNotif msg={msg} error={error}/>
+            <MsgNotif msg={msg} error={error} />
             <Footer isApiOn={isApiOn} toggleApiStatus={toggleApiStatus} />
         </S.PageContainer>
     )

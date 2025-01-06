@@ -35,27 +35,27 @@ export default function SearchBar({ onSearch, data }: SearchBarProps) {
 
   const handleDownload = () => {
     const doc = new jsPDF();
-  
+
     doc.text("Tabela de Clientes", 10, 10);
-  
+
     const tableHeaders = ["Nome", "Status"];
-  
+
     const sortedData = [...data].sort((a, b) => (b.Disponivel ? 1 : 0) - (a.Disponivel ? 1 : 0));
-  
+
     const tableData = sortedData.map(client => [
       client.Nome,
       client.Disponivel ? "Disponível" : "Indisponível"
     ]);
-  
+
     doc.autoTable({
       head: [tableHeaders],
       body: tableData,
       startY: 20,
     });
-  
+
     doc.save("tabela_clientes.pdf");
   };
-  
+
 
   return (
     <form onSubmit={handleSubmit} className="mb-6">
@@ -69,8 +69,8 @@ export default function SearchBar({ onSearch, data }: SearchBarProps) {
             onChange={handleInputChange}
             placeholder="Buscar por nome..."
           />
-          <S.DownloadButton 
-            type="button" 
+          <S.DownloadButton
+            type="button"
             onClick={handleDownload}
             disabled={data.length == 0}
           >
@@ -79,7 +79,7 @@ export default function SearchBar({ onSearch, data }: SearchBarProps) {
 
         </S.InputContainer>
         <S.ButtonContainer>
-          <S.FilterSelect 
+          <S.FilterSelect
             disabled={data.length == 0}
             value={statusFilter}
             onChange={handleStatusChange}
