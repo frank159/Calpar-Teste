@@ -97,7 +97,7 @@ export const LoadingDiv = styled.div`
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: 1;
+    z-index: 100000;
 `;
 
 export const LoadingBar = styled.div`
